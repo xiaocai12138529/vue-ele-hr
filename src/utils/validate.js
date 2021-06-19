@@ -18,6 +18,12 @@ export function validUsername(str) {
   const valid_map = ['admin', 'editor']
   return valid_map.indexOf(str.trim()) >= 0
 }
+// 手机号检验
+export function validMobile(str) {
+  console.log('手机号校验')
+  const reg = /^1\d{10}$/
+  return reg.test(str)
+}
 
 /**
  * @param {string} url
