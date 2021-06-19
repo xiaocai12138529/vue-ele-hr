@@ -92,6 +92,7 @@
 <script>
 import { validMobile } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
+import { login } from '@/api/user.js'
 
 export default {
   name: 'Login',
@@ -170,18 +171,20 @@ export default {
         this.$refs.password.focus()
       })
     },
+    async doLogin() {
+      // console.log('兜底校验')
+      try {
+        const res = await login(this.loginForm)
+        console.log('获取到token值就是', res.data)
+      } catch (err) {
+        console.log('登录失败')
+        console.log(err)
+      }
+    },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.loading = false
-            })
-            .catch(() => {
-              this.loading = false
-            })
+          this.doLogin()
         } else {
           console.log('error submit!!')
           return false

@@ -5,10 +5,32 @@ import axios from 'axios'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: 'http://ihrm-java.itheima.net', // 线上地址
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
+
+// response interceptor 响应连接器
+/**
+ * 1.响应拦截器根据返回的数据判断本次操作是否成功
+ * 2.如果成功,返回本次结果
+ */
+service.interceptors.response.use(
+  response => {
+    // const res = response.data
+    // 后端和前端的约定, success = true表示请求成功
+    if (response.data.success) {
+      return response.data
+    } else {
+      return Promise.reject(new Error(response.data.message))
+    }
+  },
+  error => {
+    console.log('err' + error) // for debug
+    return Promise.reject(error)
+  }
+)
 
 export default service
 
