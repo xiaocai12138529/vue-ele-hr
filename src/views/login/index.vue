@@ -93,6 +93,7 @@
 import { validMobile } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
 import { login } from '@/api/user.js'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Login',
@@ -157,6 +158,7 @@ export default {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
+    ...mapMutations('user', ['setToken']),
     checkCapslock(e) {
       const { key } = e
       this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
@@ -176,6 +178,7 @@ export default {
       try {
         this.loading = true
         const res = await login(this.loginForm)
+        this.setToken(res.data)
         console.log('获取到token值就是', res.data)
         this.$message({
           message: '登录成功',
