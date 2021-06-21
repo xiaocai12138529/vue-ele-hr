@@ -2,7 +2,7 @@ import axios from 'axios'
 // import { MessageBox, Message } from 'element-ui'
 // import store from '@/store'
 // import { getToken } from '@/utils/auth'
-
+import store from '@/store/index.js'
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -10,6 +10,23 @@ const service = axios.create({
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
+
+// request interceptor
+service.interceptors.request.use(
+  config => {
+    console.log('store', store)
+    const token = store.state.user.token
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`
+    }
+    return config
+  },
+  error => {
+    // do something with request error
+    console.log(error) // for debug
+    return Promise.reject(error)
+  }
+)
 
 // response interceptor 响应连接器
 /**
