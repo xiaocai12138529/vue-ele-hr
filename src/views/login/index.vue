@@ -109,8 +109,8 @@ export default {
     }
     // 密码校验
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+      if (value.length !== 6) {
+        callback(new Error('请输入正确的验证码'))
       } else {
         callback()
       }
@@ -121,8 +121,8 @@ export default {
         password: '123456'
       },
       loginRules: {
-        mobile: [{ required: true, trigger: 'blur', validator: validateMobile }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        mobile: [{ required: true, trigger: 'change', validator: validateMobile }],
+        password: [{ required: true, trigger: 'change', validator: validatePassword }]
       },
       passwordType: 'password',
       capsTooltip: false,
@@ -357,6 +357,10 @@ $light_gray: #eee;
     position: absolute;
     right: 0;
     bottom: 6px;
+  }
+
+  .el-button--primary{
+    background-color: #0062B9;
   }
 
   @media only screen and (max-width: 470px) {
