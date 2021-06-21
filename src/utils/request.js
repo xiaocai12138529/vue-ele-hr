@@ -5,8 +5,8 @@ import axios from 'axios'
 
 // create an axios instance
 const service = axios.create({
-  // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  baseURL: 'http://ihrm-java.itheima.net', // 线上地址
+  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  // baseURL: 'http://ihrm-java.itheima.net', // 线上地址
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })

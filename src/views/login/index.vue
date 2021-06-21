@@ -174,9 +174,17 @@ export default {
     async doLogin() {
       // console.log('兜底校验')
       try {
+        this.loading = true
         const res = await login(this.loginForm)
         console.log('获取到token值就是', res.data)
+        this.$message({
+          message: '登录成功',
+          type: 'success'
+        })
+        this.loading = false
       } catch (err) {
+        this.loading = false
+        this.$message.error('登录失败,用户名或密码错误')
         console.log('登录失败')
         console.log(err)
       }
