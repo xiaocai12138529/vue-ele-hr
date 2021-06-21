@@ -1,3 +1,29 @@
+
+import router from './router'
+import store from '@/store'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+const whiteList = ['/login', '/404']
+router.beforeEach((to, from, next) => {
+  // console.log(getToken)
+  console.log(store.state.user.token)
+  NProgress.start()
+  const token = store.state.user.token
+  if (token) {
+    if (to.path === '/login') {
+      next('/')
+      NProgress.done()
+    } else {
+      next()
+      NProgress.done()
+    }
+  } else {
+    whiteList.includes(to.path) ? next() : next('/login')
+    NProgress.done()
+  }
+})
+
 // import router from './router'
 // import store from './store'
 // import { Message } from 'element-ui'

@@ -1,9 +1,9 @@
-import { setToken, removeToken } from '@/utils/auth.js'
+import { setToken, removeToken, getToken } from '@/utils/auth.js'
 import { login } from '@/api/user.js'
 export default {
   namespaced: true,
   state: {
-    token: null
+    token: getToken() || null
   },
   mutations: {
     setToken(state, newToken) {

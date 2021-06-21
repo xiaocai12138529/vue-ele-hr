@@ -186,6 +186,7 @@ export default {
           type: 'success'
         })
         this.loading = false
+        this.$router.push('/')
       } catch (err) {
         this.loading = false
         this.$message.error('登录失败,用户名或密码错误')
