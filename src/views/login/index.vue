@@ -92,7 +92,7 @@
 <script>
 import { validMobile } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
-import { login } from '@/api/user.js'
+// import { login } from '@/api/user.js'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -177,9 +177,10 @@ export default {
       // console.log('兜底校验')
       try {
         this.loading = true
-        const res = await login(this.loginForm)
-        this.setToken(res.data)
-        console.log('获取到token值就是', res.data)
+        await this.$store.dispatch('user/login', this.loginForm)
+        // const res = await login(this.loginForm)
+        // this.setToken(res.data)
+        // console.log('获取到token值就是', res.data)
         this.$message({
           message: '登录成功',
           type: 'success'

@@ -1,4 +1,5 @@
 import { setToken, removeToken } from '@/utils/auth.js'
+import { login } from '@/api/user.js'
 export default {
   namespaced: true,
   state: {
@@ -15,5 +16,11 @@ export default {
       removeToken()
     }
   },
-  actions: {}
+  actions: {
+    // 登录请求
+    async login(context, loginFrom) {
+      const res = await login(loginFrom)
+      context.commit('setToken', res.data)
+    }
+  }
 }
