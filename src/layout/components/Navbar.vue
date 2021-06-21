@@ -2,7 +2,11 @@
   <div class="navbar">
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+    <div class="app-breadcrumb">
+      江苏传智播客教育科技股份有限公司
+      <span class="breadBtn">体验版</span>
+    </div>
+    <!-- <breadcrumb id="breadcrumb-container" class="breadcrumb-container" /> -->
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
@@ -24,17 +28,11 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/index">
-            <el-dropdown-item>Profile</el-dropdown-item>
-          </router-link>
           <router-link to="/">
-            <el-dropdown-item>Dashboard</el-dropdown-item>
+            <el-dropdown-item>home</el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
+          <a target="_blank" href="https://github.com/xiaocai12138529/vue-ele-hr">
             <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">Log Out</span>
@@ -47,7 +45,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
+// import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
@@ -56,7 +54,7 @@ import Search from '@/components/HeaderSearch'
 
 export default {
   components: {
-    Breadcrumb,
+    // Breadcrumb,
     Hamburger,
     ErrorLog,
     Screenfull,
@@ -83,11 +81,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.app-breadcrumb {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 50px;
+  margin-left: 10px;
+  color: #ffffff;
+  cursor: text;
+  .breadBtn {
+    background: #84a9fe;
+    font-size: 14px;
+    padding: 0 10px;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 10px;
+    margin-left: 15px;
+  }
+}
 .navbar {
   height: 50px;
   overflow: hidden;
   position: relative;
-  background: #fff;
+  // background: #fff;
+  background-image: -webkit-linear-gradient(left, #3d6df8, #5b8cff);
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
   .hamburger-container {
@@ -148,10 +165,11 @@ export default {
 
         .user-avatar {
           cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
+         width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        vertical-align: middle;
+      }
 
         .el-icon-caret-bottom {
           cursor: pointer;
