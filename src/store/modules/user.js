@@ -1,9 +1,10 @@
 import { setToken, removeToken, getToken } from '@/utils/auth.js'
-import { login } from '@/api/user.js'
+import { login, getInfo, getUserDetailById } from '@/api/user.js'
 export default {
   namespaced: true,
   state: {
-    token: getToken() || null
+    token: getToken() || null,
+    getUserInfo: {}
   },
   mutations: {
     setToken(state, newToken) {
@@ -14,6 +15,9 @@ export default {
     delToken(state, newToken) {
       state.token = null
       removeToken()
+    },
+    setUserInfo(state, newUserInfo) {
+      state.userInfo = newUserInfo
     }
   },
   actions: {
@@ -21,6 +25,13 @@ export default {
     async login(context, loginFrom) {
       const res = await login(loginFrom)
       context.commit('setToken', res.data)
+    },
+    // 获取用户信息
+    async getUserInfo(context) {
+      const res = await getInfo()
+      const resPhoto = await getUserDetailById(res.data.userId)
+      console.log('userInfo', res, resPhoto)
+      context.commit('setUserInfo', { ...res.data, ...resPhoto.data })
     }
   }
 }
