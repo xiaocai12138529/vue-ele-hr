@@ -24,7 +24,7 @@
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          {{ this.$store.state.user.userInfo.username }}
+          {{ staffPhoto.username }}
           <!-- <img :src="$store.state.user.userInfo.staffPhoto" class="user-avatar"> -->
           <img src="@/assets/common/bigUserHeader.png" class="user-avatar">
           <i class="el-icon-caret-bottom" />
@@ -66,7 +66,8 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar',
-      'device'
+      'device',
+      'staffPhoto'
     ])
   },
   methods: {

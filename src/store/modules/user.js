@@ -4,7 +4,7 @@ export default {
   namespaced: true,
   state: {
     token: getToken() || null,
-    getUserInfo: {}
+    userInfo: {}
   },
   mutations: {
     setToken(state, newToken) {
