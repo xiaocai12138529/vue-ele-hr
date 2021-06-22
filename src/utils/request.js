@@ -4,6 +4,8 @@ import axios from 'axios'
 // import { getToken } from '@/utils/auth'
 import store from '@/store/index.js'
 // create an axios instance
+
+import router from '@/router'
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // baseURL: 'http://ihrm-java.itheima.net', // 线上地址
@@ -44,6 +46,15 @@ service.interceptors.response.use(
     }
   },
   error => {
+    if (error.response.data.code === 10002) {
+      // token过期
+      // 1. 清空token
+      console.log(123)
+      store.commit('user/delToken')
+      // 2. 跳转到登录页
+      // router.currentRoute   [.js]  <====>  this.$route[.vue]
+      router.push('/login?return_url=' + router.fullPath)
+    }
     console.log('err' + error) // for debug
     return Promise.reject(error)
   }
