@@ -26,6 +26,11 @@ export default {
       const res = await login(loginFrom)
       context.commit('setToken', res.data)
     },
+    // 退出
+    async logout(context) {
+      context.commit('delToken')
+      removeToken()
+    },
     // 获取用户信息
     async getUserInfo(context) {
       const res = await getInfo()
