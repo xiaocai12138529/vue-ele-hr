@@ -24,7 +24,7 @@
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          {{ $store.state.user.userInfo.username }}
+          {{ this.$store.state.user.userInfo.username }}
           <!-- <img :src="$store.state.user.userInfo.staffPhoto" class="user-avatar"> -->
           <img src="@/assets/common/bigUserHeader.png" class="user-avatar">
           <i class="el-icon-caret-bottom" />
@@ -56,7 +56,6 @@ import Search from '@/components/HeaderSearch'
 
 export default {
   components: {
-    // Breadcrumb,
     Hamburger,
     ErrorLog,
     Screenfull,

@@ -250,6 +250,7 @@ $cursor: #fff;
 
 /* reset element-ui css */
 .login-container {
+  height: 100%;
   .el-input {
     display: inline-block;
     height: 47px;
@@ -292,6 +293,7 @@ $light_gray: #eee;
 .login-container {
   min-height: 100%;
   width: 100%;
+  height: 100%;
   background-color: $bg;
   overflow: hidden;
   background-image: url("~@/assets/common/login.jpg"); // 设置背景图片
@@ -300,6 +302,7 @@ $light_gray: #eee;
   .login-form {
     position: relative;
     width: 520px;
+      height: 100%;
     max-width: 100%;
     padding: 160px 35px 0;
     margin: 0 auto;

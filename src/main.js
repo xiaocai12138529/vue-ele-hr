@@ -21,19 +21,23 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
-/**
- * If you don't want to use mock-server
- * you want to use MockJs for mock api
- * you can execute: mockXHR()
- *
- * Currently MockJs will be used in the production environment,
- * please remove it before going online ! ! !
- */
-// if (process.env.NODE_ENV === 'production') {
-//   const { mockXHR } = require('../mock')
-//   mockXHR()
-// }
-
+// main.js引用
+import VueScroll from 'vuescroll'
+Vue.use(VueScroll, {
+  ops: {
+    vuescroll: {},
+    scrollPanel: {},
+    rail: {
+      keepShow: true
+    },
+    bar: {
+      hoverStyle: true,
+      onlyShowBarOnScroll: false, // 是否只有滚动的时候才显示滚动条
+      background: '#ccc'
+    }
+  }, // 在这里设置全局默认配置
+  name: 'myScroll' // 在这里自定义组件名字，默认是vueScroll
+})
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
   locale: enLang // 如果使用中文，无需设置，请删除

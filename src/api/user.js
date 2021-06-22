@@ -18,12 +18,12 @@ export function getInfo() {
   })
 }
 
-export function logout() {
-  return request({
-    url: '/vue-element-admin/user/logout',
-    method: 'post'
-  })
-}
+// export function logout() {
+//   return request({
+//     url: '/vue-element-admin/user/logout',
+//     method: 'post'
+//   })
+// }
 
 /**
  * @description: 获取用户头像

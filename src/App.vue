@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <myScroll>
+      <router-view />
+    </myScroll>
   </div>
 </template>
 
@@ -9,3 +11,9 @@ export default {
   name: 'App'
 }
 </script>
+
+<style lang="scss">
+#app{
+  height: 100%;
+}
+</style>
