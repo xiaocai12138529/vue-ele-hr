@@ -8,7 +8,7 @@
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
         :unique-opened="false"
-        :active-text-color="variables.menuActiveText"
+        active-text-color="red"
         :collapse-transition="false"
         mode="vertical"
       >

@@ -111,8 +111,10 @@ export default {
   overflow: hidden;
   position: relative;
   // background: #fff;
-  background-image: -webkit-linear-gradient(left, #3d6df8, #5b8cff);
+  // background-image: -webkit-linear-gradient(left, #3d6df8, #5b8cff);
+  background-image: linear-gradient(90deg, #29bdd9 0%, #276ace 100%);
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  border-radius: 0 0 5px 5px;
 
   .hamburger-container {
     line-height: 46px;

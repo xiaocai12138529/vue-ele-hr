@@ -100,7 +100,13 @@
         background-color: $menuHover !important;
       }
     }
-
+    .is-active{
+      background-color: #fff !important;
+      border-radius: 5px;
+    }
+    .is-active span{
+      color: #43a7fe !important;
+     }
     .is-active>.el-submenu__title {
       color: $subMenuActiveText !important;
     }
