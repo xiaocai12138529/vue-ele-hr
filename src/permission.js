@@ -3,10 +3,10 @@ import router, { asyncRoutes } from './router'
 import store from '@/store'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import getPageTitle from '@/utils/get-page-title'
 
 const whiteList = ['/login', '/404']
 router.beforeEach(async(to, from, next) => {
-  // console.log(getToken)
   console.log(store.state.user.token)
   NProgress.start()
   const token = store.state.user.token
@@ -32,10 +32,16 @@ router.beforeEach(async(to, from, next) => {
   }
 })
 
+router.beforeEach((to, from, next) => {
+  // 如何设置页面标题? document.title
+  // 路由守卫可以有多个
+  document.title = getPageTitle(to.meta.title)
+  next()
+})
+
 // import { Message } from 'element-ui'
 // import 'nprogress/nprogress.css' // progress bar style
 // import { getToken } from '@/utils/auth' // get token from cookie
-// import getPageTitle from '@/utils/get-page-title'
 
 // NProgress.configure({ showSpinner: false })
 

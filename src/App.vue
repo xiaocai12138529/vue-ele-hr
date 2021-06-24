@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <myScroll>
-      <router-view />
-    </myScroll>
+    <router-view />
   </div>
 </template>
 
