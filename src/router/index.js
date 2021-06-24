@@ -34,13 +34,13 @@ export const constantRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 import {
+  departmentsRouter, // 组织架构/部门管理
+  settingRouter, // 角色管理
+  employeesRouter, // 员工管理
+  permissionRouter, // 权限管理
   approvalsRouter,
-  departmentsRouter,
-  employeesRouter,
-  permissionRouter,
   // attendancesRouter,
   salarysRouter,
-  settingRouter,
   socialRouter } from './modules/all'
 export const asyncRoutes = [
   approvalsRouter,
