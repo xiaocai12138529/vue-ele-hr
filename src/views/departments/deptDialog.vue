@@ -1,19 +1,19 @@
 <template>
   <div>
-    <el-form ref="deptForm" label-width="120px">
-      <el-form-item label="部门名称">
+    <el-form ref="deptForm" :model="form" :rules="rules" label-width="120px">
+      <el-form-item label="部门名称" prop="name">
         <el-input v-model="form.name" style="width:80%" placeholder="1-50个字符" />
       </el-form-item>
-      <el-form-item label="部门编码">
+      <el-form-item label="部门编码" prop="code">
         <el-input v-model="form.code" style="width:80%" placeholder="1-50个字符" />
       </el-form-item>
-      <el-form-item label="部门负责人">
+      <el-form-item label="部门负责人" prop="manager">
         <el-select v-model="form.manager" style="width:80%" placeholder="请选择">
           <el-option v-for="item in list" :key="item.id" :value="item.username" :label="item.username" />
           <!-- <el-option value="2" label="大美丽" /> -->
         </el-select>
       </el-form-item>
-      <el-form-item label="部门介绍">
+      <el-form-item label="部门介绍" prop="introduce">
         <el-input v-model="form.introduce" style="width:80%" placeholder="1-300个字符" type="textarea" :rows="3" />
       </el-form-item>
       <el-form-item>
@@ -39,6 +39,24 @@ export default ({
   },
   data() {
     return {
+      rules: {
+        name: [
+          { required: true, message: '部门名字不能为空', trigger: 'blur' },
+          { min: 1, max: 50, message: '部门名字在1-50个字符', trigger: 'change' }
+        ],
+        code: [
+          { required: true, message: '部门名字不能为空', trigger: 'blur' },
+          { min: 1, max: 50, message: '部门名字在1-50个字符', trigger: 'change' }
+        ],
+        manager: [
+          { required: true, message: '部门名字不能为空', trigger: 'blur' },
+          { min: 1, max: 50, message: '部门名字在1-50个字符', trigger: 'change' }
+        ],
+        introduce: [
+          { required: true, message: '部门名字不能为空', trigger: 'blur' },
+          { min: 1, max: 50, message: '部门名字在1-300个字符', trigger: 'change' }
+        ]
+      },
       form: {
         name: '', // 部门名称
         code: '', // 部门编码
@@ -93,7 +111,14 @@ export default ({
     },
     // 添加部门
     async hSubmit() {
-      this.iseide ? this.upd() : this.add()
+      this.$refs.deptForm.validate(valid => {
+        if (valid) {
+          this.iseide ? this.upd() : this.add()
+        } else {
+          this.$message.warning('请填入必填项')
+          return false
+        }
+      })
     },
     hCancel() {
       console.log(123)
