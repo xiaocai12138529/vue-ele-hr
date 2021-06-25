@@ -42,35 +42,46 @@ export default ({
     }
   },
   data() {
+    // 表单编码验证
     const validateCode = (rule, value, callback) => {
       let bo
-      if (this.iseide) {
+      this.iseide
         // 编辑状态
-        bo = this.originList.filter(item => item.id !== this.id).some(item => item.code === value)
-      } else {
+        ? bo = this.originList.filter(item => item.id !== this.id).some(item => item.code === value)
         // 添加状态
-        bo = this.originList.some(item => item.code === value)
-      }
+        : bo = this.originList.some(item => item.code === value)
       bo ? callback(new Error('编码' + value + '已经存在')) : callback()
+    }
+    // 表单name校验
+    const validateName = (rule, value, callback) => {
+      // 添加部门, value 在同级部门中不能重复
+      let nameList = this.originList.filter(item => item.pid === this.id).map(item => item.name)
+      if (this.iseide) {
+        const pid = this.originList.find(item => item.id === this.id).pid
+        nameList = this.originList.filter(item => item.pid === pid && item.id !== this.id).map(item => item.name)
+      }
+      nameList.includes(value)
+        ? callback(new Error('名字' + value + '已经被占用了'))
+        : callback()
     }
     return {
       rules: {
         name: [
           { required: true, message: '部门名字不能为空', trigger: 'blur' },
-          { min: 1, max: 50, message: '部门名字在1-50个字符', trigger: 'change' }
+          { min: 1, max: 50, message: '部门名字在1-50个字符', trigger: 'change' },
+          { validator: validateName, trigger: 'change' }
         ],
         code: [
-          { required: true, message: '部门名字不能为空', trigger: 'blur' },
-          { min: 1, max: 50, message: '部门名字在1-50个字符', trigger: 'change' },
+          { required: true, message: '部门编码不能为空', trigger: 'blur' },
+          { min: 1, max: 50, message: '部门编码在1-50个字符', trigger: 'change' },
           { validator: validateCode, trigger: 'change' }
         ],
         manager: [
-          { required: true, message: '部门名字不能为空', trigger: 'blur' },
-          { min: 1, max: 50, message: '部门名字在1-50个字符', trigger: 'change' }
+          { required: true, message: '部门负责人不能为空', trigger: 'blur' }
         ],
         introduce: [
-          { required: true, message: '部门名字不能为空', trigger: 'blur' },
-          { min: 1, max: 50, message: '部门名字在1-300个字符', trigger: 'change' }
+          { required: true, message: '部门描述不能为空', trigger: 'blur' },
+          { min: 1, max: 50, message: '部门描述在1-300个字符', trigger: 'change' }
         ]
       },
       form: {
