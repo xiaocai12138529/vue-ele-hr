@@ -27,7 +27,7 @@
                     操作<i class="el-icon-arrow-down" />
                   </span>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>添加子部门</el-dropdown-item>
+                    <el-dropdown-item @click.native="addIdexp('')">添加子部门</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </el-col>
@@ -67,6 +67,10 @@
                       <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item @click.native="addIdexp(data.id)">添加子部门</el-dropdown-item>
                         <el-dropdown-item @click.native="updId(data.id)">修改子部门</el-dropdown-item>
+                        <el-dropdown-item
+                          v-if="!data.children.length"
+                          @click.native="delId(data.id)"
+                        >删除子部门</el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
                   </el-col>
@@ -96,6 +100,7 @@
 </template>
 <script>
 import { getDepartments } from '@/api/department.js'
+import { delDpartment } from '@/api/employees'
 import treeFn from '@/utils/tree'
 import deptDialong from './deptDialog.vue'
 export default {
@@ -121,6 +126,27 @@ export default {
     this.getDepartment()
   },
   methods: {
+    // 删除方法
+    async doDelete(val) {
+      try {
+        console.log(123)
+        const res = await delDpartment(val)
+        console.log(res)
+        this.$message.success('删除成功')
+        this.getDepartment()
+      } catch (err) {
+        this.$message.error('删除失败')
+      }
+    },
+    delId(val) {
+      this.$confirm('确认要删除吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.doDelete(val)
+      }).catch(() => {})
+    },
     updId(val) {
       this.showDialog = true
       this.isEide = true
@@ -138,6 +164,7 @@ export default {
       this.carId = val
       this.isEide = false
     },
+    // 查询所有部门的信息
     async getDepartment() {
       try {
         const res = await getDepartments()

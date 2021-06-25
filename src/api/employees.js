@@ -34,3 +34,10 @@ export function updDpartment(id) {
     method: 'PUT'
   })
 }
+// 删除部门信息
+export function delDpartment(id) {
+  return request({
+    url: `/company/department/${id}`,
+    method: 'delete'
+  })
+}
