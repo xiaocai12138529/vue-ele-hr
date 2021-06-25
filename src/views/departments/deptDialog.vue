@@ -50,9 +50,9 @@ export default ({
   },
   watch: {
     // 监听id变化来重新渲染数据
-    id() {
-      this.get()
-    }
+    // id() {
+    //   this.get()
+    // }
   },
   created() {
     this.loadGet()

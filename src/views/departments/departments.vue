@@ -80,12 +80,13 @@
 
     <!-- 弹层 -->
     <el-dialog
-      title="添加或修改子部门"
+      :title="isEide ? '编辑' : '添加'"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       :visible.sync="showDialog"
     >
       <deptDialong
+        v-if="showDialog"
         :id="carId"
         :iseide="isEide"
         @dialong-false="hEnd"
@@ -135,6 +136,7 @@ export default {
     addIdexp(val) {
       this.showDialog = true
       this.carId = val
+      this.isEide = false
     },
     async getDepartment() {
       try {
