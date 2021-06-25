@@ -21,6 +21,15 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
+(function() {
+  let i = 1
+  const log = console.log
+  console.log = function() {
+    // debugger
+    log.apply(this, [i++, Date.now(), ...arguments])
+  }
+}
+)()
 // main.js引用
 import VueScroll from 'vuescroll'
 Vue.use(VueScroll, {

@@ -13,7 +13,10 @@
             <svg-icon icon-class="home" /><span>江苏传智播客教育科技股份有限公司</span>
           </el-col>
           <el-col :span="4">
-            <el-row type="flex" justify="end">
+            <el-row
+              type="flex"
+              justify="end"
+            >
               <!-- 两个内容 -->
               <el-col>负责人</el-col>
               <!-- 下拉菜单 element -->
@@ -48,7 +51,10 @@
                 <svg-icon icon-class="user" /><span>{{ data.name }}</span>
               </el-col>
               <el-col :span="4">
-                <el-row type="flex" justify="end">
+                <el-row
+                  type="flex"
+                  justify="end"
+                >
                   <!-- 两个内容 -->
                   <el-col>{{ data.manager }}</el-col>
                   <!-- 下拉菜单 element -->
@@ -148,11 +154,10 @@ export default {
 </script>
 
 <style lang="scss">
-.el-col-4{
+.el-col-4 {
   flex: auto;
   position: absolute;
   right: 0;
   width: 400px;
-
 }
 </style>
