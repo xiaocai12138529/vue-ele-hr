@@ -34,10 +34,25 @@ export default ({
     },
     iseide: {
       type: Boolean,
-      defaults: false
+      required: false
+    },
+    originList: {
+      type: Array,
+      required: true
     }
   },
   data() {
+    const validateCode = (rule, value, callback) => {
+      let bo
+      if (this.iseide) {
+        // 编辑状态
+        bo = this.originList.filter(item => item.id !== this.id).some(item => item.code === value)
+      } else {
+        // 添加状态
+        bo = this.originList.some(item => item.code === value)
+      }
+      bo ? callback(new Error('编码' + value + '已经存在')) : callback()
+    }
     return {
       rules: {
         name: [
@@ -46,7 +61,8 @@ export default ({
         ],
         code: [
           { required: true, message: '部门名字不能为空', trigger: 'blur' },
-          { min: 1, max: 50, message: '部门名字在1-50个字符', trigger: 'change' }
+          { min: 1, max: 50, message: '部门名字在1-50个字符', trigger: 'change' },
+          { validator: validateCode, trigger: 'change' }
         ],
         manager: [
           { required: true, message: '部门名字不能为空', trigger: 'blur' },

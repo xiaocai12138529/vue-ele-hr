@@ -92,6 +92,7 @@
       <deptDialong
         v-if="showDialog"
         :id="carId"
+        :origin-list="originList"
         :iseide="isEide"
         @dialong-false="hEnd"
       />
@@ -119,7 +120,8 @@ export default {
       defaultProps: {
         children: 'children',
         label: 'label'
-      }
+      },
+      originList: []
     }
   },
   created() {
@@ -138,6 +140,7 @@ export default {
         this.$message.error('删除失败')
       }
     },
+    // 删除部门
     delId(val) {
       this.$confirm('确认要删除吗?', '提示', {
         confirmButtonText: '确定',
@@ -170,6 +173,14 @@ export default {
         const res = await getDepartments()
         console.log(res)
         res.data.depts.shift()
+        this.originList = res.data.depts.map(item => {
+          return {
+            id: item.id,
+            name: item.name,
+            code: item.code,
+            pid: item.pid
+          }
+        })
         this.list = treeFn(res.data.depts)
       } catch (err) {
         console.log(err)
