@@ -43,13 +43,13 @@ import {
   salarysRouter,
   socialRouter } from './modules/all'
 export const asyncRoutes = [
-  approvalsRouter,
   departmentsRouter,
+  settingRouter,
+  approvalsRouter,
   employeesRouter,
   permissionRouter,
   // attendancesRouter,
   salarysRouter,
-  settingRouter,
   socialRouter
 ]
 const createRouter = () => new Router({

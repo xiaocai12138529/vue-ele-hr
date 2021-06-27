@@ -200,4 +200,9 @@ export default {
   right: 0;
   width: 400px;
 }
+.el-tree-node__content {
+  height: 60px;
+  border-radius: 5px;
+  border-bottom: #29bdd9  solid 1px;
+}
 </style>

@@ -30,7 +30,7 @@ export const settingRouter = {
     path: '', // 这里当二级路由的path什么都不写的时候 表示当前路由为默认路由直接渲染对应组件
     component: () => import('@/views/settings/settings.vue'),
     // 路由元信息  其实就是存储数据的对象 我们可以在这里放置一些信息
-    meta: { title: '公司设置', icon: 'home' }
+    meta: { title: '角色管理', icon: 'home' }
   }]
 }
 export const salarysRouter = {
