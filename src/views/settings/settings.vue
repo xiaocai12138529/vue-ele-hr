@@ -48,21 +48,23 @@
       :title="isEdit ? '修改角色' : '新增角色'"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
+      @close="closeDia"
     >
       <el-form
         ref="addForm"
-        :model="form"
         label-width="80px"
+        :model="form"
+        :rules="rules"
       >
-        <el-form-item label="角色名称">
+        <el-form-item label="角色名称" prop="name">
           <el-input v-model="form.name" />
         </el-form-item>
-        <el-form-item label="角色描述">
+        <el-form-item label="角色描述" prop="description">
           <el-input v-model="form.description" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="hSubmit">确认</el-button>
-          <el-button>取消</el-button>
+          <el-button @click="showDialog = false">取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -74,17 +76,28 @@ export default {
   name: 'Setting',
   data() {
     return {
-      isEdit: false,
-      activeName: 'first',
-      roles: [],
-      page: 1,
-      pageParams: {
+      // 表单校验
+      rules: {
+        name: [
+          { required: true, message: '输入名不能为空', trigger: 'blur' },
+          { min: 1, max: 6, message: '输入最多6个字', trigger: 'change' },
+          { min: 1, max: 6, message: '输入最多6个字', trigger: 'blur' }
+        ],
+        description: [
+          { required: true, message: '描述不能为空', trigger: 'blur' }
+        ]
+      },
+      isEdit: false, // 是否是编辑状态
+      activeName: 'first', // 默认显示的tabs标签
+      roles: [], // 当前页显示的数据
+      page: 1, // 分页高亮
+      pageParams: { // 查询数据
         page: 1,
         pagesize: 2
       },
-      total: 0,
-      form: { name: '', description: '' },
-      showDialog: false
+      total: 0, // 总条数
+      form: { name: '', description: '' }, // 弹层表单
+      showDialog: false // 是否显示弹层
     }
   },
   computed: {
@@ -101,11 +114,19 @@ export default {
       return (this.total % this.pageParams.pagesize) === 0
     }
   },
+  // watch: {
+  //   showDialog: function() {
+  //     this.isEdit ? '' : this.form = { name: '', description: '' }
+  //   }
+  // },
 
   created() {
     this.loadRoles()
   },
   methods: {
+    closeDia() {
+      this.form = { name: '', description: '' }
+    },
     addRoulll() {
       this.isEdit = false
       this.showDialog = true
@@ -152,6 +173,8 @@ export default {
       this.$refs.addForm.validate(valid => {
         if (valid) {
           this.isEdit ? this.doUpd() : this.doAdd()
+        } else {
+          return false
         }
       })
     },
