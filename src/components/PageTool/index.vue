@@ -5,21 +5,23 @@
       <div class="left">
         <div class="tips">
           <i class="el-icon-info" />
-          <solt name="left">
+          <slot name="left">
             <span>文字区域</span>
-          </solt></div>
+          </slot></div>
       </div>
       <div class="right">
-        <solt name="right">
+        <slot name="right">
           <!-- 右侧 -->
           按钮区域
-        </solt></div>
+        </slot></div>
     </div>
   </el-card>
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'PageTool'
+}
 </script>
 
 <style lang="scss" scoped>

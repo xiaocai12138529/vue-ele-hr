@@ -11,6 +11,23 @@ export function getEmployeeSimple() {
   })
 }
 
+// 获取员工信息
+export function getEmployee(params) {
+  return request({
+    url: '/sys/user',
+    method: 'GET',
+    params
+  })
+}
+
+// 删除员工信息
+export function delEmployee(id) {
+  return request({
+    url: '/sys/user/' + id,
+    method: 'DELETE'
+  })
+}
+
 // 添加部门
 export function addDpartment(data) {
   return request({
