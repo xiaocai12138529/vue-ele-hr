@@ -8,7 +8,7 @@
         <template #right>
           <el-button type="warning" size="small">excel导入</el-button>
           <el-button type="danger" size="small">excel导出</el-button>
-          <el-button type="primary" size="small">新增员工</el-button>
+          <el-button type="primary" size="small" @click="hAdd()">新增员工</el-button>
         </template>
       </PageTool>
 
@@ -46,33 +46,61 @@
         </el-row>
       </el-card>
     </div>
+    <!-- 弹窗组件 -->
+    <el-dialog
+      title="添加"
+      :visible.sync="showDialog"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+    >
+      <empDialog @close-dialog="closeDialog" />
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getEmployee, delEmployee } from '@/api/employees'
+import empDialog from './empDialog.vue'
 import types from '@/constant/employees'
 const obj = types.hireType.reduce((t, v) => ({ ...t, [v.id]: v.value }), {})
 
 export default {
+  components: {
+    empDialog
+  },
   data() {
     return {
       pageParams: { page: 1, size: 5 },
       employee: [],
-      total: 0
+      total: 0,
+      showDialog: false
     }
   },
   created() {
     this.loadEmployee()
   },
   methods: {
+    // 关闭弹窗
+    closeDialog() {
+      this.showDialog = false
+    },
+    // 新增员工
+    async hAdd() {
+      try {
+        this.showDialog = true
+        // const res = await add()
+      } catch (err) {
+        console.log(err)
+      }
+    },
     // 删除
     async doDel(id) {
       try {
         await delEmployee(id)
         this.$message.success('删除成功')
+        this.loadEmployee()
         if (this.employee.length === 1) {
-          this.page = Math.max(--this.page, 1)
+          this.page = Math.max(--this.pageParams.page, 1)
         }
       } catch (err) {
         console.log(err)
@@ -114,6 +142,7 @@ export default {
       this.pageParams.size = size
       this.loadEmployee()
     },
+    // 自增序号
     indexMethod(index) {
       return (this.pageParams.page - 1) * this.pageParams.size + index + 1
     }
