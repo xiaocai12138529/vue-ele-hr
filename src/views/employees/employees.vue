@@ -37,6 +37,7 @@
         <el-row type="flex" justify="center" align="middle" style="height: 60px">
           <el-pagination
             layout="jumper, prev, pager, next, total, sizes"
+            :current-page.sync="page"
             :page-sizes="[2,, 4 ,5, 8, 10]"
             :total="total"
             :page-size=" pageParams.size"
@@ -52,8 +53,10 @@
       :visible.sync="showDialog"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
+      @close="diaClose"
     >
-      <empDialog @close-dialog="closeDialog" />
+
+      <empDialog ref="dialog" @close-dialog="closeDialog" @update-employee="hUpdateEmployee" />
     </el-dialog>
   </div>
 </template>
@@ -70,6 +73,7 @@ export default {
   },
   data() {
     return {
+      page: 1,
       pageParams: { page: 1, size: 5 },
       employee: [],
       total: 0,
@@ -129,6 +133,7 @@ export default {
         const res = await getEmployee(this.pageParams)
         this.employee = res.data.rows
         this.total = res.data.total
+        this.page = this.pageParams.page
       } catch (err) {
         console.log(err)
       }
@@ -145,6 +150,20 @@ export default {
     // 自增序号
     indexMethod(index) {
       return (this.pageParams.page - 1) * this.pageParams.size + index + 1
+    },
+    // 添加员工后的事件
+    hUpdateEmployee() {
+      if (!(this.total % this.pageParams.size)) {
+        this.pageParams.page = Math.ceil(this.total / this.pageParams.size) + 1
+      } else {
+        this.pageParams.page = Math.ceil(this.total / this.pageParams.size)
+      }
+      this.loadEmployee()
+    },
+    // 弹窗关闭事件
+    diaClose() {
+      console.log(this.$refs.dialog)
+      this.$refs.dialog.resetForm()
     }
   }
 }

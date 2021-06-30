@@ -1,6 +1,26 @@
 import request from '@/utils/request'
 
 /**
+ * @description: 添加员工
+ * @param {*} data
+ * @return {*}
+ */
+export function addEmployee(data) {
+  return request({
+    method: 'POST',
+    url: '/sys/user',
+    data: data
+  })
+}
+
+// 删除员工信息
+export function delEmployee(id) {
+  return request({
+    url: '/sys/user/' + id,
+    method: 'DELETE'
+  })
+}
+/**
  * @description: 获取下拉员工数据
  * @param {*}
  * @return {*}
@@ -19,15 +39,6 @@ export function getEmployee(params) {
     params
   })
 }
-
-// 删除员工信息
-export function delEmployee(id) {
-  return request({
-    url: '/sys/user/' + id,
-    method: 'DELETE'
-  })
-}
-
 // 添加部门
 export function addDpartment(data) {
   return request({
